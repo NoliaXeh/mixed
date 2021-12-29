@@ -1,0 +1,76 @@
+:root {
+    --secondary: #e0a7ee;
+    --bcg: #dbe6e7;
+}
+
+body {
+    background-color: var(--bcg);
+    height: 100%;
+}
+
+.chatroom-button {
+    border-left: var(--secondary) 1em solid;
+}
+
+.message {
+    width: 80%;
+    margin-top: 1em;
+}
+
+.message img {
+    height: 3em;
+    margin: 0.3em;
+}
+
+.message-left img {
+    float: left;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    margin-right: 0;
+}
+.message-right img {
+    float: right;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-left: 0;
+}
+
+.message-right {
+    margin-left: 25%;
+    text-align: right;
+}
+
+.message-left {
+    margin-right: 25%;
+    text-align: left;
+}
+
+.date {
+    position: absolute !important;
+    font-size: small;
+    color: #ccc !important;
+}
+
+.message-left .date {
+    right: 0.3em !important;
+    top: 0.3em !important;
+}
+
+.message-right .date {
+    left: 0.3em !important;
+    top: 0.3em !important;
+}
+
+#chat-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #eeeeee;
+    background-color: #ffffff;
+    padding: 1em;
+}
+
+#message-in {
+    background-color: var(--bcg);
+}

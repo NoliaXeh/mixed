@@ -3,7 +3,8 @@ from django.db import models
 from django.db.models import CharField, ForeignKey, IntegerField, CASCADE
 
 from django.contrib.auth.models import User
-from django.db.models.fields import TextField
+from django.db.models.deletion import SET_NULL
+from django.db.models.fields import DateTimeField, TextField
 from django.db.models.fields.json import JSONField
 
 # Create your models here.
@@ -13,10 +14,10 @@ def auto_str(cls):
     setattr(cls, "__repr__", lambda self: f"<{type(self).__name__}: {str(self)}>")
     return cls
 
-@auto_str
 class Account(models.Model):
     display_name    = CharField     (max_length=64)
     user            = ForeignKey    (User, on_delete=CASCADE)
+    __str__=lambda self: f"{self.display_name}"
 
 @auto_str
 class System(models.Model):
@@ -34,21 +35,21 @@ class ChatRoom(models.Model):
     name            = CharField     (max_length=128)
 
 class ChatRoomMembers(models.Model):
-    chatroom        = ForeignKey    (ChatRoom, on_delete=CASCADE)
+    chatroom        = ForeignKey    (ChatRoom, on_delete=CASCADE, unique=False)
+    account         = ForeignKey    (Account, on_delete=CASCADE, unique=False)
+
+class People(models.Model):
     account         = ForeignKey    (Account, on_delete=CASCADE)
+    alter           = ForeignKey    (Alter, on_delete=CASCADE, null=True)
+    __str__=lambda self:f"{self.account} ({self.alter})"
 
 class Message(models.Model):
     body            = TextField     ()
     chatroom        = ForeignKey    (ChatRoom, on_delete=CASCADE)
-    author          = JSONField     () # list of authors
-
-    __str__=lambda self: f"{self.chatroom}: {body}"
-
-# class MessageAuthors(models.Model):
-#     message         = ForeignKey    (Message, on_delete=CASCADE)
-#     account         = ForeignKey    (Account, on_delete=CASCADE, null=True)
-#     system          = ForeignKey    (System , on_delete=CASCADE, null=True)
-#     alter           = ForeignKey    (Alter  , on_delete=CASCADE, null=True)
+    author          = ForeignKey    (People, on_delete=SET_NULL, null=True)
+    created_at      = DateTimeField (auto_now_add=True)
+    updated_at      = DateTimeField (auto_now=True)
+    __str__=lambda self:f"{self.chatroom}: {self.body}"
 
 
 
