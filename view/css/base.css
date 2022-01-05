@@ -1,6 +1,10 @@
 :root {
     --secondary: #e0a7ee;
     --bcg: #dbe6e7;
+    --date-color: #ccc;
+    --bar-bcg: #fff;
+    --bar-sep: #ddd;
+    --icon-color: #c7d3d4;
 }
 
 body {
@@ -10,16 +14,27 @@ body {
 
 .chatroom-button {
     border-left: var(--secondary) 1em solid;
+    height: 4em;
 }
 
 .message {
-    width: 80%;
-    margin-top: 1em;
+    width: 90%;
+    margin-top: 0.3em;
 }
 
 .message img {
     height: 3em;
+    width:  3em;
     margin: 0.3em;
+    border: 1px solid var(--bar-sep);
+    z-index: 1000;
+    word-wrap: break-word;
+}
+
+.message .card {
+    display: inline-block;
+    min-width: 10em;
+    max-width: 100%;
 }
 
 .message-left img {
@@ -27,38 +42,76 @@ body {
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     margin-right: 0;
+    border-right: 0;
 }
 .message-right img {
     float: right;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     margin-left: 0;
+    border-left: 0;
+}
+
+img.ontop {
+    border-top-right-radius: 50% !important;
+    border-top-left-radius: 50% !important;
+    border-bottom-right-radius: 0% !important;
+    border-bottom-left-radius: 0% !important;
+    margin-bottom: -1px;
 }
 
 .message-right {
-    margin-left: 25%;
+    margin-left: 10%;
     text-align: right;
 }
 
+.message-right .card .card-body {
+    text-align: left;
+}
+
+.message-right .card {
+    border-bottom-right-radius: 1em;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+}
+.message-left .card {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
 .message-left {
-    margin-right: 25%;
+    margin-right: 10%;
     text-align: left;
 }
 
 .date {
     position: absolute !important;
     font-size: small;
-    color: #ccc !important;
+    color: var(--date-color) !important;
 }
 
 .message-left .date {
-    right: 0.3em !important;
-    top: 0.3em !important;
+    right: 0.8em !important;
+    top: 0.5em !important;
 }
 
 .message-right .date {
-    left: 0.3em !important;
-    top: 0.3em !important;
+    left: 0.8em !important;
+    top: 0.5em !important;
+}
+
+#topbar {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5em;
+    border-bottom: 1px solid var(--bar-sep);
+    background-color: var(--bar-bcg);
+    padding: 1em;
+    text-align: center;
 }
 
 #chat-input {
@@ -66,11 +119,48 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    border-top: 1px solid #eeeeee;
-    background-color: #ffffff;
+    border-top: 1px solid var(--bar-sep);
+    background-color: var(--bar-bcg);
     padding: 1em;
 }
 
 #message-in {
     background-color: var(--bcg);
+}
+
+.bi {
+    fill: var(--icon-color);
+}
+
+.pp_round {
+    border-radius: 50%;
+    border: var(--bar-sep) solid 1px;
+    width: 3em;
+    margin-right: -10px;
+    position: relative;
+    top: -25%;
+}
+
+#create_a_room_form {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999999;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 20vh;
+}
+
+#blur {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999990;
+    backdrop-filter: blur(2px);
+}
+
+#chatroom-form-validate {
+    border-color: var(--bar-sep);
 }

@@ -1,9 +1,9 @@
 function add_message_to_item(data, item)
 {
     var template = `
-    <div class="message {class}">
-        <img src="https://via.placeholder.com/128"/>
-        <div class="card">
+    <div class="message {class}" id="message-{id}">
+        <img src="{image}" class=""/>
+        <div class="card" id="message-body-{id}">
             <h6 class="card-subtitle m-2 text-muted">{author}</h6>
             <div class="card-body mt-0 pt-0">
                 {body}
@@ -13,24 +13,48 @@ function add_message_to_item(data, item)
     </div>
     `;
     
-    var author = null;
+    var author = "unknown";
+    var style = "message-left";
+    var date = format_date(data.created_at)
+    var image = "https://via.placeholder.com/128";
+    var id = data.id;
     if (data.author)
+    {
         if (data.author.alter)
             author = data.author.alter.name
         else if (data.author.account)
             author = data.author.account.display_name
-        else
-            author = "unknown"
-    else
-        author = "unknown"
-    var style = "message-left";
-    if (data.author && data.author.account)
-    {
+        
         if (data.author.account.id == current_chatroom.members[0].account.id)
             style = "message-right";
+        image = data.author.account.profile_picture;
+        if (data.author.alter !== null)
+        {
+            image = data.author.alter.profile_picture;
+        }
     }
-    var date = format_date(data.created_at)
-    item.append(template_fill(template, {"body":data.body, "author":author, "class": style, "date":date}))
+    var obj = template_fill(template, {
+        "body":data.body,
+        "author":author,
+        "class": style,
+        "date":date,
+        "image": image,
+        "id": id,
+    })
+    item.append(obj)
+    obj = $("#message-"+id);
+    console.log(obj.width());
+    var body = $("#message-body-"+id);
+    if (body.width() >= obj.width() * 0.9)
+    {
+        $("#message-"+id+" img").addClass("ontop");
+        obj.addClass("w-100 m-0");
+        obj.css("position", "relative");
+        obj.css("top", "-0.5em");
+
+
+    }
+
 }
 
 function update_message(data, item)
@@ -60,6 +84,11 @@ function send_message() {
         author: author_id,
         body: message_content,
     })
+}
+
+function go_back()
+{
+    window.location.href = 'index.html';
 }
 
 function update_authors() {
@@ -97,6 +126,7 @@ window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(a,name,value){_G
 var chatroom_url = "chatroom/" + _GET["id"];
 query_get(chatroom_url, (data) => {
     current_chatroom = data;
+    set_chatroom_title();
     init_messages();
     update_authors();
 });
@@ -108,3 +138,23 @@ function init_messages()
         update_message(data, $("#messages"))
     });   
 }
+
+function set_chatroom_title()
+{
+    template = `
+        <h2>
+            {title}
+        </h2>
+    `;
+    $("#chatroom_title").append(template_fill(template, {
+        "title": current_chatroom.name,
+    }));
+
+}
+
+document.body.addEventListener('keypress', (e) => {
+    if (e.key == "Enter")
+    {
+        send_message();
+    }
+});

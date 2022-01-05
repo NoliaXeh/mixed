@@ -72,10 +72,21 @@ function translate(mot, lang)
         "yesterday": {
             "fr-FR": "hier",
             "en-US": "yesterday"
+        },
+        "create a room": {
+            "fr-FR": "créer un salon",
+            "en-US": "create a room",
+        },
+        "name of the room": {
+            "fr-FR": "nom du salon",
+            "en-US": "name of the room",
         }
     };
     if (mot in t)
-        return t[mot];
+        if (LANG in t[mot])
+            return t[mot][LANG];
+        else
+            return mot;
     else
         return mot;
 }

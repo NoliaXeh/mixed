@@ -17,6 +17,7 @@ def auto_str(cls):
 class Account(models.Model):
     display_name    = CharField     (max_length=64)
     user            = ForeignKey    (User, on_delete=CASCADE)
+    profile_picture = CharField     (max_length=1024, default='https://i.ibb.co/DM0RM4f/default.png')
     __str__=lambda self: f"{self.display_name}"
 
 @auto_str
@@ -29,6 +30,7 @@ class Alter(models.Model):
     system          = ForeignKey    (System, on_delete=CASCADE)
     name            = CharField     (max_length=64)
     age             = IntegerField  ()
+    profile_picture = CharField     (max_length=1024, default='https://i.ibb.co/DM0RM4f/default.png')
 
 @auto_str
 class ChatRoom(models.Model):

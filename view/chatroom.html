@@ -8,21 +8,39 @@
     <link href="css/base.css" rel="stylesheet">
     </head>
 <body>
-    <div class="container m-0" style="position: relative; bottom: 5em; margin-top: 7em;">
+    <div id='topbar'>
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="btn" onclick="go_back()" ontouch="go_back()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#dbe6e7" viewBox="0 0 16 16" style="float:left">
+                        <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                    </svg>
+                </button>
+            </div>  
+            <div class="col-8" id="chatroom_title">
+            </div>
+            <div class="col-2" id="info">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid w-100 mb-5 " style="position: relative; bottom: 3em; margin-top: 11em;">
         <div id='messages'></div>
     </div>
     <div id='chat-input'>
         <div class="row">
-            <div class="col-1">
-                <select class="form-select" id="author-select" aria-label="Default select example">
-
-                </select>
-            </div>
-            <div class="col-10">
+            <div class="col-7 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
                 <input type="text" class="form-control" id="message-in" name="message-in" placeholder="Message..."></input>
             </div>
-            <div class="col-1">
-                <button type="button" class="btn" onclick="send_message()"> Send</button>
+            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                <select class="form-control" id="author-select" aria-label="Default select example">
+                </select>
+            </div>
+            <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                <button type="button" class="btn text-end px-0 m-0" onclick="send_message()"  ontouch="send_message()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#dbe6e7" class="bi bi-send-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89.471-1.178-1.178.471L5.93 9.363l.338.215a.5.5 0 0 1 .154.154l.215.338 7.494-7.494Z"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>

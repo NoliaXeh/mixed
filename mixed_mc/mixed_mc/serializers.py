@@ -20,12 +20,12 @@ def router_register(route, basename=None):
 class AlterSerializer_Solo(serializers.ModelSerializer):
     class Meta:
         model = Alter
-        fields = ["system", "name", "age"]
+        fields = ["id", "system", "name", "age", "profile_picture"]
 
 class AlterSerializer_asMember(serializers.ModelSerializer):
     class Meta:
         model = Alter
-        fields = ["name", "age"]
+        fields = ["id","name", "age", "profile_picture"]
 
 class SystemSerializer(serializers.ModelSerializer):
     alters = AlterSerializer_asMember(many=True, read_only=True, source="alter_set")
@@ -36,7 +36,7 @@ class SystemSerializer(serializers.ModelSerializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ["id", "display_name", "user"]
+        fields = ["id", "display_name", "user", "profile_picture"]
 
 class ChatRoomMembersSerializer(serializers.ModelSerializer):
     class Meta:
